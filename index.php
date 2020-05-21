@@ -12,7 +12,9 @@
 
 <a href="listaAlumnos.php"> lista de Alumnos </a> <br>
 <a href="registerStudent.php"> Registrar Alumnos </a> <br>
+<br>
+<a href="registerMision.php">Registrar una misión</a><br>
+<a href="misionList.php">Ver misiones</a><br>
 
 
-</body>
 </html> 
