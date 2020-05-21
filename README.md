@@ -1,8 +1,10 @@
 # INF239-2020-G7
 Este repositorio esta destinado a las entregas/tareas del curso INF239, 2020-1.
 
-Integrantes:  * Felipe Condon 201303018-1
-              * 
+Integrantes:
++ Jorge Caceres 201873072-6
++ Felipe Condon 201303018-1
++ Roberto Romero 201873035-1
               
 ## Instrucciones Tarea 2
 A continuacion se detallas las instrucciones e informacion relevante de la tarea 2.
