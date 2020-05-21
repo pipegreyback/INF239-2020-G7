@@ -14,7 +14,7 @@
 
     <div class="form-group">
       <label for="estudiante">rol Estudiante</label>
-      <input type="estudiante" class="form-control" name="rolAlumno" placeholder="Ingresar rol del alumno" id="rolAlumno">
+      <input type="estudiante" class="form-control" name="rolalumno" placeholder="Ingresar rol del alumno" id="rolAlumno">
     </div>
     <div class="form-group">
       <label for="estudiante">Nombre Estudiante</label>
@@ -26,7 +26,7 @@
     </div>
     <div class="form-group">
       <label for="estudiante">Año de ingreso</label>
-      <input type="estudiante" class="form-control" name="añoIngreso" placeholder="Ingresar año de ingreso del alumno" id="añoIngreso">
+      <input type="estudiante" class="form-control" name="añoingreso" placeholder="Ingresar año de ingreso del alumno" id="añoIngreso">
     </div>
     <button type="submit" class="btn btn-primary">Enviar</button>
 </form> 

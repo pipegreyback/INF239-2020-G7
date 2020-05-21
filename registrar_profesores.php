@@ -4,7 +4,7 @@
     <form action="formprofesores.php" method="POST">
         <div class="form-group">
           <label for="idProfesor">idProfesor</label>
-          <input type="idProfesor" class="form-control" name="idProfesor" id="idProfesor">
+          <input type="idProfesor" class="form-control" name="idprofesor" id="idProfesor">
         </div>
         <div class="form-group">
           <label for="nombre">nombre</label>

@@ -10,7 +10,7 @@
 </head>
 <body>
 <?php
-$sql = "SELECT * FROM Alumno";
+$sql = "SELECT * FROM alumno";
 $result = pg_query_params($dbconn, $sql, array());
 if( pg_num_rows($result) > 0 ) {
     echo '<table style="width:70%" >';

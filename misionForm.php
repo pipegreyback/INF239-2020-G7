@@ -2,12 +2,12 @@
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $idProfesor = $_POST["idProfesor"];
-    $idAlumno = $_POST["idAlumno"];
+    $idProfesor = $_POST["idprofesor"];
+    $idAlumno = $_POST["idalumno"];
     $descripcion = $_POST["descripcion"];
     $recompensa = $_POST["recompensa"];
     $misionID = 1;
-    $sql = 'SELECT idmision FROM Mision ';
+    $sql = 'SELECT idmision FROM mision ';
     $result = pg_query_params($dbconn,$sql,array());
     if (pg_num_rows($result) > 0){
         $misionID = (pg_num_rows($result) + 1);
@@ -18,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     
 
-    $sql = 'INSERT INTO Mision (idMision, idProfesor, fechaIngreso,idAlumno, descripcion, recompensa,estado) VALUES ($1, $2, $3, $4, $5,$6,0)';
-    if( pg_query_params($dbconn, $sql, array($misionID,$idProfesor,$date,$idAlumno,$descripcion,$recompensa)) !== FALSE ) {
+    $sql = 'INSERT INTO mision (idmision, idprofesor, fechaingreso,idalumno, descripcion, recompensa,estado) VALUES ($1, $2, $3, $4, $5,$6,0)';
+    if( pg_query_params($dbconn, $sql, array($misionid,$idprofesor,$date,$idalumno,$descripcion,$recompensa)) !== FALSE ) {
         echo "Dato ingresado correctamente <br>";
         echo '<a href="misionList.php"> lista de Misiones </a> <br>';
         echo '<a href="registerMision.php"> Ingresar más datos </a> <br>';

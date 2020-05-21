@@ -2,11 +2,11 @@
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $rol = $_POST["rolAlumno"];
+    $rol = $_POST["rolalumno"];
     $nombre = $_POST["nombre"];
     $apellido = $_POST["apellido"];
-    $añoIngreso = $_POST["añoIngreso"];
-    $sql = "SELECT 1 FROM Alumno WHERE rolAlumno=$rol";
+    $añoIngreso = $_POST["añoingreso"];
+    $sql = "SELECT 1 FROM alumno WHERE rolalumno=$rol";
     $result = pg_query_params($dbconn,$sql,array());
     if (pg_num_rows($result) == 1) {
         echo "Alumno ya ingresado <br>";
@@ -14,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }else {
 
 
-    $sql = 'INSERT INTO Alumno (rolAlumno, nombre, apellido, añoIngreso) VALUES ($1, $2, $3, $4)';
-    if( pg_query_params($dbconn, $sql, array($rol,$nombre,$apellido,$añoIngreso)) !== FALSE ) {
+    $sql = 'INSERT INTO alumno (rolalumno, nombre, apellido, añoingreso) VALUES ($1, $2, $3, $4)';
+    if( pg_query_params($dbconn, $sql, array($rol,$nombre,$apellido,$añoingreso)) !== FALSE ) {
         echo "Dato ingresado correctamente <br>";
         echo '<a href="listaAlumnos.php"> lista de Alumnos </a> <br>';
         echo '<a href="registerStudent.php"> Ingresar más datos </a> <br>';

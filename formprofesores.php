@@ -2,13 +2,13 @@
 
 
 if ($_SERVER["REQUEST_METHOD"] = "POST"){
-    $idProfesor = $_POST["idProfesor"];
+    $idprofesor = $_POST["idprofesor"];
     $nombre = $_POST["nombre"];
     $apellido = $_POST["apellido"];
     $especialidad = $_POST["especialidad"];
-    if (pg_query_params($dbconn, $sql, array($idProfesor, $nombre, $apellido, $especialidad)) !== FALSE {
+    if (pg_query_params($dbconn, $sql, array($idprofesor, $nombre, $apellido, $especialidad)) !== FALSE {
         echo "Dato ingresado correctamente";
-        $Sql = 'INSERT INTO Profesor (idProfesor, nombre, apellido, especialidad) VALUES ($1, $2, $3, $4)';
+        $Sql = 'INSERT INTO profesor (idprofesor, nombre, apellido, especialidad) VALUES ($1, $2, $3, $4)';
         pg_close($dbconn);
 
     }else{

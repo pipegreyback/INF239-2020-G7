@@ -10,7 +10,7 @@
 </head>
 <body>
 <?php
-$sql = "SELECT * FROM Mision";
+$sql = "SELECT * FROM mision";
 $result = pg_query_params($dbconn, $sql, array());
 if( pg_num_rows($result) > 0 ) {
     echo '<table style="width:70%" >';

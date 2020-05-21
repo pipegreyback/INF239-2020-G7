@@ -2,7 +2,7 @@
 <h1>
 <?php
 // detalles de la conexion
-$conn_string = "host=localhost port=5432 dbname=pip user=pip password=Cel097290524";
+$conn_string = "host=localhost port=5432 dbname=pip user=pip password=pip1234";
 // establecemos una conexion con el servidor postgresSQL
 $dbconn = pg_connect($conn_string);
 // Revisamos el estado de la conexion en caso de errores.
