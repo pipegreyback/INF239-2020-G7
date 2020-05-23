@@ -15,6 +15,7 @@
 <br>
 <a href="registerMision.php">Registrar una misión</a><br>
 <a href="registrar_ayu_mision.php">Asignar una misión</a><br>
+<a href="cambiarEstado.php">Cambiar estado de una misión</a><br>
 <a href="misionList.php">Ver misiones</a><br>
 <br>
 <a href="registrar_profesores.php">Registrar profesores</a><br>
