@@ -14,11 +14,11 @@
 
     <div class="form-group">
       <label for="mision">ID Profesor</label>
-      <input type="id" class="form-control" name="idprofesor" placeholder="Ingresar ID del profesor" id="idProfesor">
+      <input type="id" class="form-control" name="idprofesor" placeholder="Ingresar ID del profesor" id="idprofesor">
     </div>
     <div class="form-group">
       <label for="mision">ID Estudiante</label>
-      <input type="id" class="form-control" name="idalumno" placeholder="Ingresar ID del alumno" id="idAlumno">
+      <input type="id" class="form-control" name="idalumno" placeholder="Ingresar ID del alumno" id="idalumno">
     </div>
     <div class="form-group">
       <label for="mision">Descripcion</label>
