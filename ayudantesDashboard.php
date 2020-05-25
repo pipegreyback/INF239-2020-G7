@@ -57,6 +57,9 @@
                     }
                     echo '</table>';
                     pg_close($dbconn);
+                } else if (pg_num_rows($result) == 0) {
+                    echo "Aun no hay adyudantes.";
+                    pg_close($dbconn);
                 } else {
                     echo "Error al cargar ayudantes";
                     pg_close($dbconn);

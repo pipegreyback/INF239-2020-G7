@@ -16,11 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $sql = 'INSERT INTO ayudante (rolayudante, nombre, apellido, cantidadsemestres) VALUES ($1, $2, $3, $4)';
         if (pg_query_params($dbconn, $sql, array($rol, $nombre, $apellido, $cantidadsemestres)) !== FALSE) {
-            echo "Dato ingresado correctamente <br>";
-            echo '<a href="listAyudantes.php"> lista de ayudantes </a> <br>';
-            echo '<a href="registerAyudante.php"> Ingresar más ayudantes </a> <br>';
-            echo '<a href="index.php">Volver al menu</a>' >
-                pg_close($dbconn);
+            header("Location: http://64.227.96.220/ayudantesDashboard.php#!", true, 301);
+            pg_close($dbconn);
         } else {
             echo "Hubo un error al ingresar el dato";
             pg_close($dbconn);
