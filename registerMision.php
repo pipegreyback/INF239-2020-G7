@@ -12,12 +12,20 @@
 
 <main>
 
+  <!-- Dropdown -->
+
+  <ul id="dropdown1" class="dropdown-content">
+    <li class=><a href="/alumnosDashboard.php">Alumno</a></li>
+    <li><a href="/ayudantesDashboard.php">Ayudante</a></li>
+    <li><a href="/profesorDashboard.php">Profesor</a></li>
+  </ul>
+
   <!-- navbar -->
   <nav>
     <div class="cyan darken-3 nav-wrapper">
       <a href="index.php" class="brand-logo">Mission Control</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="registerDashboard.php">Registro</a></li>
+        <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Registro<i class="material-icons right">arrow_drop_down</i></a></li>
         <li class="active"><a href="misionDashboard.php">Misiones</a></li>
         <li><a href="about.php">Acerca de la tarea</a></li>
       </ul>
@@ -25,30 +33,44 @@
   </nav>
 
   <!-- contenido -->
+
+
+
   <div class="container">
     <h3>Agregar Mision</h3>
     <div class="row">
-      <form action="misionForm.php" method="POST">
-        <div class="input-field col s12">
-          <label for="mision">ID Profesor</label>
-          <input type="number" class="form-control" name="idprofesor" placeholder="Ingresar ID del profesor" id="idprofesor">
-        </div>
-        <div class="input-field col s12">
-          <label for="mision">ID Estudiante</label>
-          <input type="text" class="form-control" name="idalumno" placeholder="Ingresar ID del alumno" id="idalumno">
-        </div>
-        <div class="input-field col s12">
-          <label for="mision">Descripcion</label>
-          <input type="text" class="form-control" name="descripcion" placeholder="Descripción" id="descripcion">
-        </div>
-        <div class="input-field col s12">
-          <label for="mision">Recompensa</label>
-          <input type="text" class="form-control" name="recompensa" placeholder="Recompensa" id="recompensa">
-        </div>
-        <button type="submit" class="btn btn-primary">Enviar</button>
-      </form>
+      <div class="col s12 l9">
 
+        <form action="misionForm.php" method="POST">
+          <div class="input-field col s12">
+            <label for="mision">ID Profesor</label>
+            <input type="number" class="form-control" name="idprofesor" placeholder="Ingresar ID del profesor" id="idprofesor">
+          </div>
+          <div class="input-field col s12">
+            <label for="mision">ID Estudiante</label>
+            <input type="text" class="form-control" name="idalumno" placeholder="Ingresar ID del alumno" id="idalumno">
+          </div>
+          <div class="input-field col s12">
+            <label for="mision">Descripcion</label>
+            <input type="text" class="form-control" name="descripcion" placeholder="Descripción" id="descripcion">
+          </div>
+          <div class="input-field col s12">
+            <label for="mision">Recompensa</label>
+            <input type="text" class="form-control" name="recompensa" placeholder="Recompensa" id="recompensa">
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+      </div>
+      <div class="col s12 l3">
+        <div class="collection">
+          <a class="collection-item active" href="/registerMision.php">Añadir Mision</a>
+          <a class="collection-item" href="/cambiarEstado.php">Cambiar Estado</a>
+          <a class="collection-item " href="/cambiarRecompensa.php">Cambiar Recompensa</a>
+          <a class="collection-item" href="/registrar_ayu_mision.php">Asignar Ayudante</a>
+        </div>
+      </div>
     </div>
+
 
   </div>
 

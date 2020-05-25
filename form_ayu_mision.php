@@ -9,13 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] = "POST") {
     if (pg_num_rows($result) == 1) {
         $sql = 'INSERT INTO Asignacion (rolAyudante, idMision) VALUES ($1, $2)';
         if (pg_query_params($dbconn, $sql, array($rolAyudante, $idMision)) !== FALSE) {
-            echo "Dato ingresado correctamente";
+            header("Location: http://64.227.96.220/misionDashboard.php?edit=1", true, 301);
             pg_close($dbconn);
         } else {
-            echo "Hubo un error al ingresar el dato";
+            header("Location: http://64.227.96.220/misionDashboard.php?error=1", true, 301);
             pg_close($dbconn);
         }
     } else {
-        echo "No existe una mision con el ID indicado<br>";
+        header("Location: http://64.227.96.220/misionDashboard.php?error=1", true, 301);
     }
 }

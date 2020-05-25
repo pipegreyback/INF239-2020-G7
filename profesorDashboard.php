@@ -15,9 +15,9 @@
     <!-- Dropdown -->
 
     <ul id="dropdown1" class="dropdown-content">
-        <li class="active"><a href="/profesorDashboard.php">Profesor</a></li>
         <li><a href="/alumnosDashboard.php">Alumno</a></li>
-        <li><a href="/ayudanteDashboard.php">Ayudante</a></li>
+        <li><a href="/ayudantesDashboard.php">Ayudante</a></li>
+        <li class="active"><a href="/profesorDashboard.php">Profesor</a></li>
     </ul>
 
     <!-- navbar -->

@@ -9,12 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] = "POST") {
     if (pg_num_rows($result) == 1) {
         $sql = "UPDATE mision SET recompensa = $2 WHERE idmision=$1";
         pg_query_params($dbconn, $sql, array($idMision, $recompensa));
-        echo "Estado de la mision #" . $idMision . " ha cambiado con exito a " . $recompensa . "<br>";
-        echo "<a href='index.php'>Volver al menú</a>";
+        header("Location: http://64.227.96.220/misionDashboard.php?edit=1", true, 301);
         pg_close($dbconn);
     } else {
-        echo "No existe una mision con el ID indicado<br>";
-        echo "<a href='cambiarRecompensa.php'>Volver a intentar</a><br>";
-        echo "<a href='index.php'>Volver al menú</a>";
+        header("Location: http://64.227.96.220/misionDashboard.php?error=1", true, 301);
     }
 }
