@@ -9,6 +9,14 @@ Integrantes:
 ## Instrucciones Tarea 2
 A continuacion se detallas las instrucciones e informacion relevante de la tarea 2.
 ### Consideraciones
+Solo se utilizaron los supuestos indicados en la tarea, particularmente, se espera que los datos ingresados sean correctos en aquellas secciones donde no se señaló la necesidad de verificar.
+
+La plataforma 'Mission Control' es un Mission Management System(MMS) dedicada a administrar las misiones académicas emitidas por la Universidad Técnica Federico Santa María. La interfaz consiste en un menú principal con dos secciones:
+* 'Registros' en donde podemos agregar profesores, ayudantes y estudiantes y adicionalmente revisar aquellos ya existentes.
+* 'Misiones' en la cual podemos añadir y ver las misiones,modificar el estado y recompensa de estas y asignar ayudantes a las misiones.
+
+No hay consideraciones especiales para la revisión de la plataforma.
+
 Se realizo el desarrollo utilizando las siguientes dependencias:
 * Ubuntu-Server 18.10
 * Posgresql 12.10

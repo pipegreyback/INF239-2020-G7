@@ -10,9 +10,11 @@
     <title>Mission Control</title>
 </head>
 
+
+
+
+
 <main>
-
-
     <!-- Dropdown -->
 
     <ul id="dropdown1" class="dropdown-content">
@@ -27,37 +29,45 @@
             <a href="index.php" class="brand-logo">Mission Control</a>
             <ul class="right hide-on-med-and-down">
                 <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Registro<i class="material-icons right">arrow_drop_down</i></a></li>
-                <li><a href="misionDashboard.php">Misiones</a></li>
+                <li class="active"><a href="misionDashboard.php">Misiones</a></li>
                 <li><a href="about.php">Acerca de la tarea</a></li>
             </ul>
         </div>
     </nav>
 
-
     <!-- contenido -->
 
     <div class="container">
-        <h5>Acceso Rapido</h5>
         <div class="row">
-            <div class="collection col l6 s12">
-                <h3>Registros</h3>
-                <a href="/ayudantesDashboard.php" class="collection-item">Ayudantes</a>
-                <a href="/profesorDashboard.php" class="collection-item">Profesores</a>
-                <a href="/alumnosDashboard.php" class="collection-item">Alumnos</a>
+            <div class="col s12 l9 ">
+                <h4>Cambiar recompensa de la misión</h4>
+                <form action="cambiarRecompensaForm.php" method="POST">
+                    <div class="form-group">
+                        <label for="idmision">ID de la misión</label>
+                        <input type="number" class="form-control" name="idmision">
+                        <label for="idmision">Nueva recompensa de la misión</label>
+                        <input type="text" class="form-control" name="recompensa">
+                        <button type="submit" class="btn btn-primary">Enviar</button>
 
+                    </div>
+                </form>
             </div>
-            <div class="collection col l6 s12">
-                <h3>Misiones</h3>
-                <a href="/misionDashboard.php" class="collection-item">Listado de Misiones</a>
-                <a href="/registerMision.php" class="collection-item">Añadir Misión</a>
-                <a href="/cambiarEstado.php" class="collection-item">Modificar Estado</a>
-                <a href="/cambiarRecompensa.php" class="collection-item">Modificar Recompensa</a>
-                <a href="/registrar_ayu_mision.php" class="collection-item">Añadir Ayudante</a>
+            <div class="col s12 l3">
+                <div class="collection">
+                    <a class="collection-item" href="/registerMision.php">Añadir Mision</a>
+                    <a class="collection-item" href="/cambiarEstado.php">Cambiar Estado</a>
+                    <a class="collection-item active" href="/cambiarRecompensa.php">Cambiar Recompensa</a>
+                    <a class="collection-item" href="/registrar_ayu_mision.php">Asignar Ayudante</a>
+                </div>
             </div>
+
+
         </div>
+    </div>
+
+
+
 </main>
-
-
 
 <!-- footer -->
 
@@ -86,6 +96,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="src/js/main.js"></script>
 
 </html>
