@@ -20,10 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $sql = 'INSERT INTO mision (idmision, idprofesor, fechaingreso,idalumno, descripcion, recompensa,estado) VALUES ($1, $2, $3, $4, $5,$6,0)';
     if (pg_query_params($dbconn, $sql, array($misionid, $idprofesor, $date, $idalumno, $descripcion, $recompensa)) !== FALSE) {
-        header("Location: http://64.227.96.220/misionDashboard.php?exito=1", true, 301);
+        header("Location: misionDashboard.php?exito=1", true, 301);
         pg_close($dbconn);
     } else {
-        header("Location: http://64.227.96.220/misionDashboard.php?error=1", true, 301);
+        header("Location: misionDashboard.php?error=1", true, 301);
         pg_close($dbconn);
     }
 }

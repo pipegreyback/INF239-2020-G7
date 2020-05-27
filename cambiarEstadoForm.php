@@ -12,13 +12,13 @@ if ($_SERVER["REQUEST_METHOD"] = "POST") {
             $sql = 'UPDATE mision SET estado = 1 where idmision=$1';
             pg_query_params($dbconn, $sql, array($idMision));
             $estado = pg_fetch_assoc($result)["estado"];
-            header("Location: http://64.227.96.220/misionDashboard.php?estado=1", true, 301);
+            header("Location: misionDashboard.php?estado=1", true, 301);
             pg_close($dbconn);
         } else {
             $sql = 'UPDATE mision SET estado = 0 where idmision=$1';
             pg_query_params($dbconn, $sql, array($idMision));
             $estado = pg_fetch_assoc($result)["estado"];
-            header("Location: http://64.227.96.220/misionDashboard.php?estado=0", true, 301);
+            header("Location: misionDashboard.php?estado=0", true, 301);
             pg_close($dbconn);
         }
     } else {

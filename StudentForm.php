@@ -24,6 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Hubo un error al ingresar el dato";
             pg_close($dbconn);
         }
-        header("Location: http://64.227.96.220/alumnosDashboard.php#!", true, 301);
+        header("Location: alumnosDashboard.php#!", true, 301);
     }
 }
