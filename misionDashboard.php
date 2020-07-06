@@ -40,38 +40,55 @@
                 <h2>Listado de misiones</h2>
                 <?php
                 $sql = "SELECT * FROM mision";
-                $result = pg_query_params($dbconn, $sql, array());
-                if (pg_num_rows($result) > 0) {
-                    echo '<table>';
-                    echo '<tr>';
-                    echo '<th>ID Mision </th>';
-                    echo '<th>ID Profesor </th>';
-                    echo '<th>ID alumno</th>';
-                    echo '<th>Fecha </th>';
-                    echo '<th>Estado </th>';
-                    echo '<th>Descripcion </th>';
-                    echo '<th>Recompensa </th>';
-                    echo '</tr>';
-                    while ($row = pg_fetch_assoc($result)) {
-                        echo '<tr>';
-                        echo '<td>  ' . $row["idmision"] . '</td>';
-                        echo '<td>  ' . $row["idprofesor"] . '</td>';
-                        echo '<td>  ' . $row["idalumno"] . '</td>';
-                        echo '<td>  ' . $row["fechaingreso"] . '</td>';
-                        echo '<td>  ' . $row["estado"] . '</td>';
-                        echo '<td>  ' . $row["descripcion"] . '</td>';
-                        echo '<td>  ' . $row["recompensa"] . '</td>';
-                        echo '</tr>';
-                    }
-                    echo '</table>';
-                    pg_close($dbconn);
-                } else if (pg_num_rows($result) == 0) {
-                    echo "Aun no hay misiones.";
-                    pg_close($dbconn);
-                } else {
-                    echo "Error al cargar misiones";
-                    pg_close($dbconn);
+
+                $_SESSION["usuario"] =1;
+                $usuario = $_SESSION["usuario"];
+                $sqlprofe = pg_query_params($dbconn,"SELECT idProfesor FROM Profesor WHERE idProfesor = '$usuario' ",array());
+                $sqlayud = pg_query_params($dbconn,"SELECT rolayudante FROM Ayudante WHERE rolayudante = '$usuario' ",array());
+                $sqlalumn = pg_query_params($dbconn,"SELECT rolalumno FROM Alumno WHERE rolalumno = '$usuario' ",array());
+                if (pg_num_rows($sqlprofe) != 0){
+                    $sql = "SELECT * FROM mision WHERE idprofesor=".$usuario;
+                }elseif (pg_num_rows($sqlayud) != 0){
+                    $sql = "select * from mision inner join asignacion on mision.idmision = asignacion.idmision where asignacion.rolayudante='".$usuario."'";
                 }
+                
+                //Si es alumno y no es ayudante se restringe el acceso
+                if(pg_num_rows($sqlalumn)!=0 || pg_num_rows($sqlayud)==0){
+                    echo "<h2>Usuario no autorizado</h2>";
+                }else {
+                    $result = pg_query_params($dbconn, $sql, array());
+                    if (pg_num_rows($result) > 0) {
+                        echo '<table>';
+                        echo '<tr>';
+                        echo '<th>ID Mision </th>';
+                        echo '<th>ID Profesor </th>';
+                        echo '<th>ID alumno</th>';
+                        echo '<th>Fecha </th>';
+                        echo '<th>Estado </th>';
+                        echo '<th>Descripcion </th>';
+                        echo '<th>Recompensa </th>';
+                        echo '</tr>';
+                        while ($row = pg_fetch_assoc($result)) {
+                            echo '<tr>';
+                            echo '<td>  ' . $row["idmision"] . '</td>';
+                            echo '<td>  ' . $row["idprofesor"] . '</td>';
+                            echo '<td>  ' . $row["idalumno"] . '</td>';
+                            echo '<td>  ' . $row["fechaingreso"] . '</td>';
+                            echo '<td>  ' . $row["estado"] . '</td>';
+                            echo '<td>  ' . $row["descripcion"] . '</td>';
+                            echo '<td>  ' . $row["recompensa"] . '</td>';
+                            echo '</tr>';
+                        }
+                        echo '</table>';
+                        pg_close($dbconn);
+                    } else if (pg_num_rows($result) == 0) {
+                        echo "Aun no hay misiones.";
+                        pg_close($dbconn);
+                    } else {
+                        echo "Error al cargar misiones";
+                        pg_close($dbconn);
+                    }
+            }
                 ?>
             </div>
             <div class="col l3 s12">
