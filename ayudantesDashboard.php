@@ -40,12 +40,11 @@
             <div class="col s12 l8">
                 <?php
                 session_start();
-                $_SESSION["usuario"] =25;
                 $usuario = $_SESSION["usuario"];
                 $sqlprofe = pg_query_params($dbconn,"SELECT idProfesor FROM Profesor WHERE idProfesor = '$usuario' ",array());
 
                 if (pg_num_rows($sqlprofe)!= 0){
-                    $sql = "SELECT * FROM alumno INNER JOIN Ayudantía ON alumno.rolalumno = Ayudantía.rolayudante";
+                    $sql = "SELECT * FROM alumno INNER JOIN Ayudantía ON alumno.rolalumno = Ayudantía.rolayudante INNER JOIN Impartición ON Impartición.siglaRam = Ayudantía.siglaRam WHERE Impartición.idProfesor = '$usuario' ";
                     $result = pg_query_params($dbconn, $sql, array());
                     if (pg_num_rows($result) > 0) {
                         echo '<table style="width:70%" >';

@@ -40,8 +40,6 @@
                 <h2>Listado de misiones</h2>
                 <?php
                 $sql = "SELECT * FROM mision";
-
-                $_SESSION["usuario"] =1;
                 $usuario = $_SESSION["usuario"];
                 $sqlprofe = pg_query_params($dbconn,"SELECT idProfesor FROM Profesor WHERE idProfesor = '$usuario' ",array());
                 $sqlayud = pg_query_params($dbconn,"SELECT rolayudante FROM Ayudante WHERE rolayudante = '$usuario' ",array());

@@ -40,7 +40,6 @@
                 <h4>Lista Alumnos</h4>
                 <?php
                 session_start();
-                $_SESSION["usuario"] =25;
                 $usuario = $_SESSION["usuario"];
                 $sqlprofe = pg_query_params($dbconn,"SELECT idProfesor FROM Profesor WHERE idProfesor = '$usuario' ",array());
                 if (pg_numrows($sqlprofe) != 0){
