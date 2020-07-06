@@ -46,6 +46,13 @@ session_start();
             echo '<div class="row">';
             echo '<h4>Bienvenido ' . $_SESSION["nombre"] . '</h4>';
             echo '</div>';
+            echo '<div class="collection">';
+            echo '<a class="collection-item" href="/">Registrar Profesor</a>';
+            echo '<a class="collection-item" href="/">Crear asignatura</a>';
+            echo '<a class="collection-item" href="/">Registro de ayudantes</a>';
+            echo '<a class="collection-item" href="/">Modificar datos</a>';
+            echo $_SESSION["tipo"];
+            echo '</div>';
         } else {
         ?>
             <h4>Bienvenido a TUMA</h4>

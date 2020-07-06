@@ -14,49 +14,56 @@ session_start();
 
 <main>
 
-    <!-- Dropdown -->
-
-    <ul id="dropdown1" class="dropdown-content">
-        <li><a href="/alumnosDashboard.php">Alumno</a></li>
-        <li class="active"><a href="/ayudantesDashboard.php">Ayudante</a></li>
-        <li><a href="/profesorDashboard.php">Profesor</a></li>
-    </ul>
-
     <!-- navbar -->
     <nav>
         <div class="cyan darken-3 nav-wrapper">
             <a href="index.php" class="brand-logo">Mission Control</a>
             <ul class="right hide-on-med-and-down">
-                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Registro<i class="material-icons right">arrow_drop_down</i></a></li>
-                <li><a href="misionDashboard.php">Misiones</a></li>
+                <?php
+                if (isset($_SESSION["nombre"])) {
+                    echo '<li>Hola ' . $_SESSION["nombre"] . '</li>';
+                }
+                ?>
+                <li><a href="professorHome.php">Profesor</a></li>
+                <li><a href="studentHome.php">Alumno</a></li>
                 <li><a href="about.php">Acerca de la tarea</a></li>
+                <?php
+                if (isset($_SESSION["nombre"])) {
+                    echo '<li><a href="logout.php">Cerrar sesion</a></li>';
+                } ?>
             </ul>
         </div>
     </nav>
-
     <!-- contenido -->
     <?php
     if ($_SESSION["tipo"] == "profesor") {
     ?>
         <div class="container">
+            <h4>Bienvenido a TUMA!</h4>
             <div class="row">
-                <div class="col s12 l6">
-                </div>
-                <div class="col s12 l6">
-                    <h3>Registrar Ayudante</h3>
-                    <form action="ayudanteForm.php" method="POST">
-
-                        <div class="input-field">
-                            <label for="estudiante">rol ayudante</label>
-                            <input type="text" class="form-control" name="rol" placeholder="Ingresar rol del ayudante">
+                <div class="col s12">
+                    <h4>Registro de asignatura</h4>
+                    <form action="asignaturaForm.php" method="POST" class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="nombre">Sigla Ramo</label>
+                                <input type="text" class="form-control" name="sigla">
+                            </div>
+                            <div class="input-field col s12">
+                                <label for="apellido">Nombre Ramo</label>
+                                <input type="text" class="form-control" name="nombre">
+                            </div>
+                            <div class="input-field col s12">
+                                <label for="creditos">Creditos</label>
+                                <input type="number" class="form-control" name="creditos">
+                            </div>
+                            <div class="input-field col s12">
+                                <label for="semestre">Semestre</label>
+                                <input type="text" class="form-control" name="semestre" id="semestre">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
                         </div>
-                        <div class="input-field">
-                            <label for="estudiante">Ramo de ayudantia</label>
-                            <input type="text" class="form-control" name="ramo" placeholder="Ingresar nombre del alumno">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
-
                 </div>
             </div>
         </div>
@@ -92,5 +99,22 @@ session_start();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="src/js/main.js"></script>
+<script>
+    $(document).ready(function() {
+
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var fail = url.searchParams.get("error");
+        if (fail == 1) {
+            M.toast({
+                html: 'Password incorrecta'
+            })
+        } else if (fail == 2) {
+            M.toast({
+                html: 'Usuario no existe.'
+            })
+        }
+    })
+</script>
 
 </html>

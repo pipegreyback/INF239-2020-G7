@@ -16,7 +16,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $queryPassword)) {
             $_SESSION["rol"] = $queryId;
             $_SESSION["nombre"] = $queryName;
-            $_SESSION["tipo"] = "alumno";
+            $sql = "SELECT * FROM ayudantia WHERE rolayudante like $1";
+            $result = pg_query_params($dbconn, $sql, array($rol));
+            if (pg_num_rows($result) >= 1) {
+                $_SESSION["tipo"] = "ayudante";
+            } else {
+                $_SESSION["tipo"] = "alumno";
+            }
             header("Location: alumnosDashboard.php#!");
             exit();
         } else {
