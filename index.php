@@ -1,4 +1,7 @@
-<?php include 'db_config.php'; ?>
+<?php include 'db_config.php';
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -13,22 +16,23 @@
 <main>
 
 
-    <!-- Dropdown -->
-
-    <ul id="dropdown1" class="dropdown-content">
-        <li class=""><a href="/alumnosDashboard.php">Alumno</a></li>
-        <li><a href="/ayudantesDashboard.php">Ayudante</a></li>
-        <li><a href="/profesorDashboard.php">Profesor</a></li>
-    </ul>
-
     <!-- navbar -->
     <nav>
         <div class="cyan darken-3 nav-wrapper">
             <a href="index.php" class="brand-logo">Mission Control</a>
             <ul class="right hide-on-med-and-down">
-                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Registro<i class="material-icons right">arrow_drop_down</i></a></li>
-                <li><a href="misionDashboard.php">Misiones</a></li>
+                <?php
+                if (isset($_SESSION["nombre"])) {
+                    echo '<li>Hola ' . $_SESSION["nombre"] . '</li>';
+                }
+                ?>
+                <li><a href="professorHome.php">Profesor</a></li>
+                <li><a href="studentHome.php">Alumno</a></li>
                 <li><a href="about.php">Acerca de la tarea</a></li>
+                <?php
+                if (isset($_SESSION["nombre"])) {
+                    echo '<li><a href="logout.php">Cerrar sesion</a></li>';
+                } ?>
             </ul>
         </div>
     </nav>
@@ -37,24 +41,63 @@
     <!-- contenido -->
 
     <div class="container">
-        <h5>Acceso Rapido</h5>
-        <div class="row">
-            <div class="collection col l6 s12">
-                <h3>Registros</h3>
-                <a href="/ayudantesDashboard.php" class="collection-item">Ayudantes</a>
-                <a href="/profesorDashboard.php" class="collection-item">Profesores</a>
-                <a href="/alumnosDashboard.php" class="collection-item">Alumnos</a>
+        <?php
+        if (isset($_SESSION["tipo"])) {
+            echo '<div class="row">';
+            echo '<h4>Bienvenido ' . $_SESSION["nombre"] . '</h4>';
+            echo '</div>';
+            echo '<div class="collection">';
+            echo '<a class="collection-item" href="/">Registrar Profesor</a>';
+            echo '<a class="collection-item" href="/">Crear asignatura</a>';
+            echo '<a class="collection-item" href="/">Registro de ayudantes</a>';
+            echo '<a class="collection-item" href="/">Modificar datos</a>';
+            echo $_SESSION["tipo"];
+            echo '</div>';
+        } else {
+        ?>
+            <h4>Bienvenido a TUMA</h4>
+            <p>Ingresa como Profesor o Estudiante</p>
+            <div class="row">
+                <div class="collection col l6 s12">
+                    <h4>Profesor</h4>
+                    <p>Iniciar Sesion</p>
+                    <form action="professorLogin.php" method="POST">
+                        <div class="input-field">
+                            <label for="estudiante">id Profesor</label>
+                            <input type="text" class="form-control" name="professorId" placeholder="Ingresar id de profesor" id="idProfessor">
+                        </div>
+                        <div class="input-field">
+                            <label for="estudiante">Contraseña</label>
+                            <input type="password" class="form-control" name="password" placeholder="Ingresa tu contraseña" id="password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
+                    <br>
+                    <a href="/professorHome.php" class="collection-item">¿No tienes cuenta? Registrar</a>
 
+
+                </div>
+                <div class="collection col l6 s12">
+                    <h4>Estudiante</h4>
+                    <p>Iniciar Sesion</p>
+                    <form action="StudentLogin.php" method="POST">
+                        <div class="input-field">
+                            <label for="estudiante">rol Estudiante</label>
+                            <input type="text" class="form-control" name="rolalumno" placeholder="Ingresar rol del alumno" id="rolAlumno">
+                        </div>
+                        <div class="input-field">
+                            <label for="estudiante">Contraseña</label>
+                            <input type="password" class="form-control" name="password" placeholder="Ingresa tu contraseña" id="password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
+                    <br>
+                    <a href="/studentHome.php" class="collection-item">¿No tienes cuenta? Registrar</a>
+
+                </div>
+            <?php
+        } ?>
             </div>
-            <div class="collection col l6 s12">
-                <h3>Misiones</h3>
-                <a href="/misionDashboard.php" class="collection-item">Listado de Misiones</a>
-                <a href="/registerMision.php" class="collection-item">Añadir Misión</a>
-                <a href="/cambiarEstado.php" class="collection-item">Modificar Estado</a>
-                <a href="/cambiarRecompensa.php" class="collection-item">Modificar Recompensa</a>
-                <a href="/registrar_ayu_mision.php" class="collection-item">Añadir Ayudante</a>
-            </div>
-        </div>
 </main>
 
 

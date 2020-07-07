@@ -1,4 +1,7 @@
 <?php include 'db_config.php'; ?>
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -25,9 +28,15 @@
         <div class="cyan darken-3 nav-wrapper">
             <a href="index.php" class="brand-logo">Mission Control</a>
             <ul class="right hide-on-med-and-down">
-                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Registro<i class="material-icons right">arrow_drop_down</i></a></li>
-                <li><a href="misionDashboard.php">Misiones</a></li>
+                <?php
+                if (isset($_SESSION["nombre"])) {
+                    echo '<li>Hola ' . $_SESSION["nombre"] . '</li>';
+                }
+                ?>
+                <li><a href="professorHome.php">Profesor</a></li>
+                <li><a href="studentHome.php">Alumno</a></li>
                 <li><a href="about.php">Acerca de la tarea</a></li>
+                <li><a href="logout.php">Cerrar sesion</a></li>
             </ul>
         </div>
     </nav>
@@ -37,6 +46,7 @@
     <div class="container">
         <div class="row">
             <div class="col s12 l6">
+
                 <h3>Profesores</h3>
                 <?php
                 $sql = "SELECT * FROM profesor";
