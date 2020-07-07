@@ -39,32 +39,42 @@
             <div class="col s12 l6">
                 <h4>Lista Alumnos</h4>
                 <?php
-                $sql = "SELECT * FROM alumno";
-                $result = pg_query_params($dbconn, $sql, array());
-                if (pg_num_rows($result) > 0) {
-                    echo '<table style="width:70%" >';
-                    echo '<tr>';
-                    echo '<th> Rol </th>';
-                    echo '<th> Nombre </th>';
-                    echo '<th> Apellido </th>';
-                    echo '<th> Año de ingreso </th>';
-                    while ($row = pg_fetch_assoc($result)) {
+                session_start();
+                $usuario = $_SESSION["usuario"];
+                $sqlprofe = pg_query_params($dbconn,"SELECT idProfesor FROM Profesor WHERE idProfesor = '$usuario' ",array());
+                if (pg_numrows($sqlprofe) != 0){
+                    $sql = "SELECT * FROM alumno";
+                    $result = pg_query_params($dbconn, $sql, array());
+                    if (pg_num_rows($result) > 0) {
+                        echo '<table style="width:70%" >';
                         echo '<tr>';
-                        echo '<td>' . $row["rolalumno"] . '</td>';
-                        echo '<td>' . $row["nombre"] . '</td>';
-                        echo '<td>' . $row["apellido"] . '</td>';
-                        echo '<td>' . $row["añoingreso"] . '</td>';
-                        echo '</tr>';
+                        echo '<th> Rol </th>';
+                        echo '<th> Nombre </th>';
+                        echo '<th> Apellido </th>';
+                        echo '<th> Año de ingreso </th>';
+                        echo '<th></th>';
+                        while ($row = pg_fetch_assoc($result)) {
+                            $rol = $row["rolalumno"];
+                            echo '<tr>';
+                            echo '<td>' . $row["rolalumno"] . '</td>';
+                            echo '<td>' . $row["nombre"] . '</td>';
+                            echo '<td>' . $row["apellido"] . '</td>';
+                            echo '<td>' . $row["añoingreso"] . '</td>';
+                            echo '<td>' . '<a href="modAlumno.php?rolalumno='.$rol.'">modificar</a>' . '</td>';
+                            echo '</tr>';
+                        }
+                        echo '</table>';
+                        pg_close($dbconn);
+                    } else if (pg_num_rows($result) == 0) {
+                        echo "Aun no hay alumnos.";
+                        pg_close($dbconn);
+                    } else {
+                        echo "Error al cargar alumnos";
+                        pg_close($dbconn);
                     }
-                    echo '</table>';
-                    pg_close($dbconn);
-                } else if (pg_num_rows($result) == 0) {
-                    echo "Aun no hay alumnos.";
-                    pg_close($dbconn);
-                } else {
-                    echo "Error al cargar alumnos";
-                    pg_close($dbconn);
-                }
+            }else {
+                echo "<h2>Usuario no autorizado</h2>";
+            }
                 ?>
             </div>
             <div class="col s12 l6">
