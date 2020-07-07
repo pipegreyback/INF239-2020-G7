@@ -40,8 +40,8 @@
         <h3>Asignacion de misión a ayudante</h3>
         <form action="form_ayu_mision.php" method="POST">
           <div class="form-group">
-            <label for="rolAyudante">rolAyudante</label>
-            <input type="text" class="form-control" name="rolAyudante" id="rolAyudante">
+            <label for="idayudantia">idayudantia</label>
+            <input type="text" class="form-control" name="idayudantia" id="idayudantia">
           </div>
           <div class="form-group">
             <label for="idMision">idMision</label>

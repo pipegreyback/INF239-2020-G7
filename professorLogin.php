@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["idprofesor"] = $queryId;
             $_SESSION["nombre"] = $queryName;
             $_SESSION["tipo"] = "profesor";
-            header("Location: profesoresHome.php#!");
+            header("Location: index.php#!");
             exit();
         } else {
             error_log("Password incorrecta.");

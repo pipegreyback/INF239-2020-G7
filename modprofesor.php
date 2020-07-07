@@ -14,7 +14,7 @@
 <body>
 
     <h1 style="color:blue">Modificar datos de Profesor</h1>
-    <form action="formProfesor.php" method="POST">
+    <form action="formprofesor.php" method="POST">
         <div class="form-group">
             <label for="idProfesor">ID:</label>
             <input type="number" class="form-control" name="idProfesor" placeholder="Ingrese su id" id="idProfesor">

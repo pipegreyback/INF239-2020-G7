@@ -14,8 +14,6 @@ session_start();
 
 <main>
 
-    <!-- Dropdown -->
-
     <ul id="dropdown1" class="dropdown-content">
         <li><a href="/alumnosDashboard.php">Alumno</a></li>
         <li class="active"><a href="/ayudantesDashboard.php">Ayudante</a></li>
@@ -25,11 +23,30 @@ session_start();
     <!-- navbar -->
     <nav>
         <div class="cyan darken-3 nav-wrapper">
-            <a href="index.php" class="brand-logo">Mission Control</a>
+            <a href="index.php" class="brand-logo">TUMA II: Electric Boogaloo</a>
             <ul class="right hide-on-med-and-down">
-                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Registro<i class="material-icons right">arrow_drop_down</i></a></li>
-                <li><a href="misionDashboard.php">Misiones</a></li>
-                <li><a href="about.php">Acerca de la tarea</a></li>
+                <?php
+                if (isset($_SESSION["nombre"])) {
+                    echo '<li>Hola ' . $_SESSION["nombre"] . '</li>';
+                }
+                ?>
+                <?php
+                if ($_SESSION["tipo"] == "profesor") {
+                ?>
+                    <li><a href="professorHome.php">Registro profesores</a></li>
+
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Listado<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a href="misionDashboard.php">Misiones</a></li>
+                    <li><a href="about.php">Acerca de la tarea</a></li>
+                <?php
+                } else if ($_SESSION["tipo"] == "alumno" or $_SESSION["tipo"] == "ayudante") {
+                    echo '<li><a href="studentHome.php">Alumno</a></li>';
+                }
+                ?>
+                <?php
+                if (isset($_SESSION["nombre"])) {
+                    echo '<li><a href="logout.php">Cerrar sesion</a></li>';
+                } ?>
             </ul>
         </div>
     </nav>
@@ -42,12 +59,11 @@ session_start();
             <div class="row">
                 <div class="col s12 l6">
                     <?php
-                    session_start();
-                    $usuario = $_SESSION["profesorid"];
+                    $usuario = $_SESSION["idprofesor"];
                     $sqlprofe = pg_query_params($dbconn, "SELECT idProfesor FROM Profesor WHERE idProfesor = '$usuario' ", array());
 
                     if (pg_num_rows($sqlprofe) != 0) {
-                        $sql = "SELECT * FROM alumno INNER JOIN Ayudantía ON alumno.rolalumno = Ayudantía.rolayudante INNER JOIN Impartición ON Impartición.siglaRam = Ayudantía.siglaRam WHERE Impartición.idProfesor = '$usuario' ";
+                        $sql = "SELECT * FROM alumno INNER JOIN ayudantia ON alumno.rolalumno = ayudantia.rolayudante INNER JOIN imparticion ON imparticion.siglaramo = ayudantia.siglaramo WHERE imparticion.idprofesor = '$usuario' ";
                         $result = pg_query_params($dbconn, $sql, array());
                         if (pg_num_rows($result) > 0) {
                             echo '<table style="width:70%" >';
@@ -112,7 +128,7 @@ session_start();
         <div class="row">
             <div class="col l6 s12">
                 <h5 class="white-text">Mission Control</h5>
-                <p class="grey-text text-lighten-4">Tarea 2 para el ramo INF239-Bases de datos, primer semestre 2020.</p>
+                <p class="grey-text text-lighten-4">Tarea 3 para el ramo INF239-Bases de datos, primer semestre 2020.</p>
             </div>
             <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Integrantes</h5>

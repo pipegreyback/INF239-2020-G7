@@ -1,4 +1,6 @@
-<?php include 'db_config.php'; ?>
+<?php include 'db_config.php';
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -12,25 +14,37 @@
 
 <main>
 
-    <!-- Dropdown -->
-
-    <ul id="dropdown1" class="dropdown-content">
-        <li class=""><a href="/alumnosDashboard.php">Alumno</a></li>
-        <li><a href="/ayudantesDashboard.php">Ayudante</a></li>
-        <li><a href="/profesorDashboard.php">Profesor</a></li>
-    </ul>
-
-    <!-- navbar -->
     <nav>
         <div class="cyan darken-3 nav-wrapper">
-            <a href="index.php" class="brand-logo">Mission Control</a>
+            <a href="index.php" class="brand-logo">TUMA II: Electric Boogaloo</a>
             <ul class="right hide-on-med-and-down">
-                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Registro<i class="material-icons right">arrow_drop_down</i></a></li>
-                <li class="active"><a href="misionDashboard.php">Misiones</a></li>
-                <li><a href="about.php">Acerca de la tarea</a></li>
+                <?php
+                if (isset($_SESSION["nombre"])) {
+                    echo '<li>Hola ' . $_SESSION["nombre"] . '</li>';
+                }
+                ?>
+                <?php
+                if ($_SESSION["tipo"] == "profesor") {
+                ?>
+                    <li><a href="professorHome.php">Registro profesores</a></li>
+
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Listado<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li class="active"><a href="misionDashboard.php">Misiones</a></li>
+                    <li><a href="about.php">Acerca de la tarea</a></li>
+                <?php
+                } else if ($_SESSION["tipo"] == "alumno" or $_SESSION["tipo"] == "ayudante") {
+                    echo '<li><a href="studentHome.php">Alumno</a></li>';
+                }
+                ?>
+                <?php
+                if (isset($_SESSION["nombre"])) {
+                    echo '<li><a href="logout.php">Cerrar sesion</a></li>';
+                } ?>
             </ul>
         </div>
     </nav>
+
+
 
     <!-- contenido -->
     <div class="container">
@@ -40,20 +54,13 @@
                 <h2>Listado de misiones</h2>
                 <?php
                 $sql = "SELECT * FROM mision";
-                $usuario = $_SESSION["usuario"];
-                $sqlprofe = pg_query_params($dbconn,"SELECT idProfesor FROM Profesor WHERE idProfesor = '$usuario' ",array());
-                $sqlayud = pg_query_params($dbconn,"SELECT rolayudante FROM Ayudante WHERE rolayudante = '$usuario' ",array());
-                $sqlalumn = pg_query_params($dbconn,"SELECT rolalumno FROM Alumno WHERE rolalumno = '$usuario' ",array());
-                if (pg_num_rows($sqlprofe) != 0){
-                    $sql = "SELECT * FROM mision WHERE idprofesor=".$usuario;
-                }elseif (pg_num_rows($sqlayud) != 0){
-                    $sql = "select * from mision inner join asignacion on mision.idmision = asignacion.idmision where asignacion.rolayudante='".$usuario."'";
-                }
-                
-                //Si es alumno y no es ayudante se restringe el acceso
-                if(pg_num_rows($sqlalumn)!=0 || pg_num_rows($sqlayud)==0){
-                    echo "<h2>Usuario no autorizado</h2>";
-                }else {
+                $profe = $_SESSION["idprofesor"];
+                $alumno = $_SESSION["rol"];
+                $sqlprofe = pg_query_params($dbconn, "SELECT idProfesor FROM Profesor WHERE idprofesor = '$profe' ", array());
+                $sqlayud = pg_query_params($dbconn, "SELECT rolayudante FROM Ayudantia WHERE rolayudante like '$alumno' ", array());
+                $sqlalumn = pg_query_params($dbconn, "SELECT rolalumno FROM Alumno WHERE rolalumno like '$alumno' ", array());
+                if (pg_num_rows($sqlprofe) != 0) {
+                    $sql = "SELECT * FROM mision WHERE idprofesor=" . $profe;
                     $result = pg_query_params($dbconn, $sql, array());
                     if (pg_num_rows($result) > 0) {
                         echo '<table>';
@@ -86,17 +93,62 @@
                         echo "Error al cargar misiones";
                         pg_close($dbconn);
                     }
-            }
+                } elseif (pg_num_rows($sqlayud) != 0) {
+                    $sql = "select * from mision inner join asignacion on mision.idmision = asignacion.idmision where asignacion.rolayudante like'" . $alumno . "'";
+                }
+
+                //Si es alumno y no es ayudante se restringe el acceso
+                if (pg_num_rows($sqlalumn) != 0 || pg_num_rows($sqlayud) == 0) {
+                    echo "<h2>Usuario no autorizado</h2>";
+                } else {
+                    $result = pg_query_params($dbconn, $sql, array());
+                    if (pg_num_rows($result) > 0) {
+                        echo '<table>';
+                        echo '<tr>';
+                        echo '<th>ID Mision </th>';
+                        echo '<th>ID Profesor </th>';
+                        echo '<th>ID alumno</th>';
+                        echo '<th>Fecha </th>';
+                        echo '<th>Estado </th>';
+                        echo '<th>Descripcion </th>';
+                        echo '<th>Recompensa </th>';
+                        echo '</tr>';
+                        while ($row = pg_fetch_assoc($result)) {
+                            echo '<tr>';
+                            echo '<td>  ' . $row["idmision"] . '</td>';
+                            echo '<td>  ' . $row["idprofesor"] . '</td>';
+                            echo '<td>  ' . $row["idalumno"] . '</td>';
+                            echo '<td>  ' . $row["fechaingreso"] . '</td>';
+                            echo '<td>  ' . $row["estado"] . '</td>';
+                            echo '<td>  ' . $row["descripcion"] . '</td>';
+                            echo '<td>  ' . $row["recompensa"] . '</td>';
+                            echo '</tr>';
+                        }
+                        echo '</table>';
+                        pg_close($dbconn);
+                    } else if (pg_num_rows($result) == 0) {
+                        echo "Aun no hay misiones.";
+                        pg_close($dbconn);
+                    } else {
+                        echo "Error al cargar misiones";
+                        pg_close($dbconn);
+                    }
+                }
                 ?>
             </div>
-            <div class="col l3 s12">
-                <div class="collection">
-                    <a class="collection-item" href="/registerMision.php">Añadir Mision</a>
-                    <a class="collection-item" href="/cambiarEstado.php">Cambiar Estado</a>
-                    <a class="collection-item" href="/cambiarRecompensa.php">Cambiar Recompensa</a>
-                    <a class="collection-item" href="/registrar_ayu_mision.php">Asignar Ayudante</a>
+            <?php
+            if ($_SESSION["tipo"] == "profesor") {
+            ?>
+                <div class="col l3 s12">
+                    <div class="collection">
+                        <a class="collection-item" href="/registerMision.php">Añadir Mision</a>
+                        <a class="collection-item" href="/cambiarEstado.php">Cambiar Estado</a>
+                        <a class="collection-item" href="/cambiarRecompensa.php">Cambiar Recompensa</a>
+                        <a class="collection-item" href="/registrar_ayu_mision.php">Asignar Ayudante</a>
+                    </div>
                 </div>
-            </div>
+            <?php
+            } ?>
         </div>
 
 
@@ -109,7 +161,7 @@
         <div class="row">
             <div class="col l6 s12">
                 <h5 class="white-text">Mission Control</h5>
-                <p class="grey-text text-lighten-4">Tarea 2 para el ramo INF239-Bases de datos, primer semestre 2020.</p>
+                <p class="grey-text text-lighten-4">Tarea 3 para el ramo INF239-Bases de datos, primer semestre 2020.</p>
             </div>
             <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Integrantes</h5>
@@ -124,6 +176,7 @@
     <div class="cyan darken-4 footer-copyright">
     </div>
 </footer>
+
 
 <!-- Javscript dependencies -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
